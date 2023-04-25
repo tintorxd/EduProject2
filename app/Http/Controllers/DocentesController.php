@@ -28,7 +28,7 @@ class DocentesController extends Controller
     {
 
         try {
-            //code...
+            //code...zxzxc
             $file =  $request->file('CV');
             $img =  $request->file('img');
             $filename = $request->input('ci') . '.' . $file->extension();
