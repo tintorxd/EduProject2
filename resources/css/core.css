@@ -3091,7 +3091,8 @@ textarea.form-control-lg {
 .dropdown-item {
   display: block;
   width: 100%;
-  padding: 0.532rem 1.25rem;
+  padding: 1.532rem 1.25rem;
+  margin-bottom: 10px;
   clear: both;
   font-weight: 400;
   color: #697a8d;

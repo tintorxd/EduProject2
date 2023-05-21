@@ -147,15 +147,16 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6"><label class="form-label" for="basic-icon-default-phone">Subir
+                            <div class="col-md-9"><label class="form-label" for="basic-icon-default-phone">Subir
                                     Fotografia del Docente</label>
                                 <div class="input-group input-group-merge">
                                     <span id="basic-icon-default-phone2" class="input-group-text"><i
                                             class="bx bx-calendar"></i></span>
-                                    <input type="file" name="img" class="form-control" id='img_docente' />
+                                    <input type="file" name="img" class="form-control" id='img_docente'
+                                        accept=".png, .jpeg, .jpg" />
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <div class="row text-center">
                                     <div>
                                         <img id="show_doc_img" src="{{ URL::asset('assets/img/userImage.png') }}"
@@ -169,7 +170,7 @@
                             <div class="input-group input-group-merge">
                                 <span id="basic-icon-default-phone2" class="input-group-text"><i
                                         class="bx bx-calendar"></i></span>
-                                <input type="file" name="CV" class="form-control" />
+                                <input type="file" name="CV" class="form-control" accept=".pdf" />
                             </div>
                         </div>
 

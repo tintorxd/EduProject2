@@ -35,7 +35,8 @@ class EstudiantesController extends Controller
             Estudiantes::create(request(['names', 'lastnames', 'email', 'password', 'phone_number', 'birthdate', 'address']));
             return back()->with(['sub_page' => "estudiante/estuRegister", 'action' => 'success']);
         } catch (\Throwable $th) {
-            return back()->with(['sub_page' => "estudiante/estuRegister", 'action' => "error"]);
+            echo $th;
+            // return back()->with(['sub_page' => "estudiante/estuRegister", 'action' => "error"]);
         }
     }
 

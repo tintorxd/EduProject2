@@ -1,0 +1,63 @@
+.encabezado-detalle {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #1c1d1f;
+    /* text-align: center; */
+}
+.encabezado-contenido {
+    max-width: 1400px;
+    box-sizing: border-box;
+    margin: auto;
+    padding: 30px;
+    color: white !important;
+}
+.main-contenido {
+    position: relative;
+    width: 85%;
+    box-sizing: border-box;
+    margin: auto;
+    padding: 30px;
+}
+.listado-contenido ul {
+    padding-left: 5px;
+}
+.listado-contenido ul li {
+    list-style-type: none;
+    margin-top: 4px;
+}
+.detalle-curso-contenido {
+    border: 1px solid #e5e5e5;
+    width: 54%;
+    padding: 15px;
+}
+.detalle-curso-docente {
+    width: 54%;
+    padding: 15px;
+}
+.links-detalle-curso a {
+    color: black;
+    font-size: medium;
+}
+#card-detalle {
+    position: fixed;
+    width: 400px;
+    right: 760px;
+    top: 100px; /* Ajusta el valor según tus necesidades */
+    z-index: 999;
+    transform: translateX(100%);
+}
+.card-body {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+@media (max-width: 1670px) {
+    #card-detalle {
+        right: 560px !important;
+    }
+}
+@media (max-width: 1300px) {
+    #card-detalle {
+        right: 470px !important;
+    }
+}

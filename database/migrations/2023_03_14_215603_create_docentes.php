@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('names');
             $table->string('lastnames');
-            $table->boolean('state');
+            $table->boolean('state')->default(true);
             $table->string('phone_number');
             $table->string('CV');
             $table->string('img');

@@ -17,9 +17,11 @@ return new class extends Migration
             $table->id();
             $table->string('names');
             $table->string('lastnames');
-            $table->boolean('state');
+            $table->boolean('state')->default(1);
             $table->string('phone_number');
             $table->date('birthdate');
+            $table->string('address');
+            $table->string('img')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

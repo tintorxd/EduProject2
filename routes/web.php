@@ -21,12 +21,19 @@ use App\Models\Docentes;
 |
 */
 
-// Route::get('/prueba', [DocentesController::class, "test"])->name('test.init');
-Route::post('/prueba', [DocentesController::class, "test"])->name("test");
 
+// MainWabe Routes
 Route::get('/', function () {
-    return view('welcome');
+    return view('Mainweb/welcome');
 })->name("main.page");
+// Muestra los cursos por su tipo (Seminario, Taller, Capacitacion)
+Route::get('/show-curso-sell/{tipo}', [CursosController::class, "showCursotoSell"])->name('Mainweb.showCurso');
+// Muestra el detalle de un curso seleccionado
+Route::get('/show-curso-detail/{id}', [CursosController::class, "showCursoDetail"])->name('detalleCurso.show');
+
+
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name("dashboard.page");
@@ -57,9 +64,11 @@ Route::post('/update-docente/{id}', [DocentesController::class, "update"])->name
 // Cursos Pages
 Route::post('/create-curso/{tipo}', [CursosController::class, "create"])->name('registerCurso.create');
 Route::get('/show-curso/{folder}/{content}/{tipo}', [CursosController::class, "show"])->name('registerCurso.show');
+Route::get('/show-curso-enabled/{folder}/{content}/{tipo}', [CursosController::class, "showEnabledCurso"])->name('registerCurso.showEnabled');
 Route::post('/delete-curso/{id}/{tipo}/{folder}', [CursosController::class, "delete"])->name('registerCurso.delete');
 Route::post('/edit-curso/{id}/{folder}', [CursosController::class, "edit"])->name('registerCurso.edit');
-Route::get('/enable-curso/{id}/{folder}', [CursosController::class, "enableCursoView"])->name('registerCurso.enable');
+Route::get('/enable-cursoView/{id}/{folder}', [CursosController::class, "enableCursoView"])->name('registerCurso.enableView');
+Route::post('/enable-curso/{folder}/{content}/{tipo}', [CursosController::class, "enableCurso"])->name('registerCurso.enable');
 Route::post('/update-curso/{id}/{tipo}/{folder}', [CursosController::class, "update"])->name('registerCurso.update');
 
 Route::get(

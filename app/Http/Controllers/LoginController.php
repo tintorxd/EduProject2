@@ -9,47 +9,43 @@ use function PHPSTORM_META\map;
 
 class LoginController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view("LoginForm");
     }
-    public function authenticationAdmin(){
-      
-        if(auth("webadmin")->attempt(request(['email','password']))){
-      
+    public function authenticationAdmin()
+    {
+
+        if (auth("webadmin")->attempt(request(['email', 'password']))) {
+
             return redirect()->to('adminweb');
-        }else{
+        } else {
 
             return redirect()->route('Admin.page')->with(['error' => true]);;
         }
-        
-       
-       
-        
     }
-    public function authenticationUser(){
-        
-        if(auth()->attempt(request(['email','password']))){
-          
-            return redirect()->to('/');
-        }else{
-echo"FAllo la coneccion";
+    public function authenticationUser()
+    {
+
+        if (auth("students")->attempt(request(['email', 'password']))) {
+
+            return back();
+        } else {
+            echo "Fallo la coneccion";
         }
-
-        
-       
-       
-        
     }
 
-    public function destroy(){
+    public function destroy()
+    {
 
-        
-        auth()->logout();
-        return redirect()->to('/');
+
+        auth("students")->logout();
+        return back();
     }
-    public function destroyAdmin(){
+    public function destroyAdmin()
+    {
 
-        
+
         auth('webadmin')->logout();
         return redirect()->to('/adminweb');
     }

@@ -42,7 +42,7 @@
             @endif
         </div>
 
-        <table id="seminariosTable" class="table table-striped display" style="width:100%">
+        <table id="seminariosTable" class="table display" style="width:100%">
             <thead>
                 <tr>
                     <th>Titulo</th>
@@ -68,7 +68,7 @@
                                     <i class="bx bx-dots-vertical-rounded"></i>
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a href="{{ route('registerCurso.enable', ['id' => $seminario->id, 'folder' => 'seminarios']) }}"
+                                    <a href="{{ route('registerCurso.enableView', ['id' => $seminario->id, 'folder' => 'seminarios']) }}"
                                         class="dropdown-item" type="button"><i class="fa-solid fa-check"></i>
                                         Habilitar seminario</a>
                                     <form

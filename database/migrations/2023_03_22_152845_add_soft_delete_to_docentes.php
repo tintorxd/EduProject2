@@ -16,8 +16,7 @@ return new class extends Migration
         Schema::table('docentes', function (Blueprint $table) {
             //
             $table->softDeletes();
-            $table->int('ci');
-
+            $table->integer('ci');
         });
     }
 

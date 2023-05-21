@@ -32,7 +32,8 @@
   data-template="vertical-menu-template-free"
 >
   <head>
-    <meta charset="utf-8" />
+    <meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8″ />
+
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
@@ -55,6 +56,8 @@
     
     <link href="https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json"/>
     <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"/>
+    <link href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css"/>
+    
     @vite(['resources/css/app.scss', 'resources/js/app.js'])
     <!-- Icons. Uncomment required icon fonts -->
     @vite(['resources/fonts/boxicons.css'])
@@ -73,6 +76,7 @@
         crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Helpers -->
@@ -257,7 +261,12 @@
                 </li>
                 <li class="menu-item">
                   <a href="{{ route('registerCurso.show', ['folder' => 'seminarios', 'content' => 'seminariosTable', 'tipo' => 'seminario']) }}" class="menu-link">
-                    <div data-i18n="Input groups">Visualizar Seminarios</div>
+                    <div data-i18n="Input groups">Acciones con Seminarios</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('registerCurso.showEnabled', ['folder' => 'seminarios', 'content' => 'seminariosEnableTable', 'tipo' => 'seminario']) }}" class="menu-link">
+                    <div data-i18n="Input groups">Visualizar Seminarios Habilitados</div>
                   </a>
                 </li>
               </ul>
@@ -278,6 +287,11 @@
                     <div data-i18n="Input groups">Visualizar Talleres</div>
                   </a>
                 </li>
+                <li class="menu-item">
+                  <a href="{{ route('registerCurso.showEnabled', ['folder' => 'talleres', 'content' => 'talleresEnableTable', 'tipo' => 'taller']) }}" class="menu-link">
+                    <div data-i18n="Input groups">Visualizar Talleres Habilitados</div>
+                  </a>
+                </li>
               </ul>
             </li>
             <li class="menu-item">
@@ -294,6 +308,11 @@
                 <li class="menu-item">
                   <a href="{{ route('registerCurso.show', ['folder' => 'capacitaciones', 'content' => 'capacitacionesTable', 'tipo' => 'capacitacion']) }}" class="menu-link">
                     <div data-i18n="Input groups">Visualizar Capacitaciones</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('registerCurso.showEnabled', ['folder' => 'capacitaciones', 'content' => 'CapacitacionesEnableTable', 'tipo' => 'capacitacion']) }}" class="menu-link">
+                    <div data-i18n="Input groups">Visualizar Talleres Habilitados</div>
                   </a>
                 </li>
               </ul>
@@ -437,7 +456,7 @@
           <div class="content-wrapper">
             <!-- Content -->
             
-   @include($sub_page)
+            @include($sub_page)
 
             <!-- / Content -->
 

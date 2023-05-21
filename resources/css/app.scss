@@ -1,5 +1,13 @@
 @import 'bootstrap/scss/bootstrap';
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+// .item-drowpdown{
+//    height: 35px !important ;
+// }
+.dropdown-item{
+    font-size: 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
 .navbar{
     background-color: white !important;
     // border-bottom: solid 1.5px;
@@ -9,6 +17,30 @@
 .main-nav{
     padding: 0 20px 0 20px ;
 }
+.star-rating {
+    display: inline-block;
+    // font-size: 10px;
+    // margin-top: 10px;
+  }
+  
+  .star-rating input[type="radio"] {
+    display: none;
+  }
+  
+  .star-rating i.fa:before {
+    content: "\f005";
+    font-size: 13px;
+    // color: #ccc;
+    color: #ffc107;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  .star-rating input[type="radio"]:checked + label i.fa:before {
+    color: #ffc107;
+    
+  }
+  
 .btn-primario{
     background-color: #ffd803;
     color: #272343;
@@ -228,7 +260,6 @@
 }
 .dropdown-menu{
         min-width: 250px;
-        padding: 20px;
         line-height: 8px;
        
 }
@@ -239,6 +270,7 @@
         -moz-box-shadow: 0 10px 50px -6px #777;
         box-shadow: 0 10px 50px -6px #777;
 }
+
 
 /*responsive*/
 @media(max-width: 767px) {

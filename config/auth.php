@@ -43,6 +43,10 @@ return [
         'webadmin' => [
             'driver' => 'session',
             'provider' => 'administradores',
+        ],
+        'students' => [
+            'driver' => 'session',
+            'provider' => 'estudiantes',
         ]
     ],
 

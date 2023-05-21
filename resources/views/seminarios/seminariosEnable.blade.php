@@ -60,10 +60,11 @@
                         <small class="text-muted float-end">Seminario</small>
                     </div>
                     <div class="card-body">
-                        <form
-                            action="{{ route('registerCurso.update', ['id' => $seminario->id, 'tipo' => $seminario->tipo_curso, 'folder' => 'seminarios']) }}"
-                            method="post">
+                        <form id='enable_curso'
+                            action="{{ route('registerCurso.enable', ['folder' => 'seminarios', 'content' => 'seminariosEnableTable', 'tipo' => 'seminario']) }}"
+                            method="post" enctype="multipart/form-data">
                             @csrf
+                            <input type="hidden" name="id_curso" value="{{ $seminario->id }}">
                             <div class="mb-3">
                                 <label class="form-label" for="basic-icon-default-fullname">Titulo del Seminario</label>
                                 <div class="input-group input-group-merge">
@@ -72,7 +73,7 @@
                                     <input type="text" class="form-control" name="titulo"
                                         value="{{ $seminario->titulo }}" placeholder="Seminario de Informatica I"
                                         aria-label="Seminario de Informatica I"
-                                        aria-describedby="basic-icon-default-fullname2" disabled />
+                                        aria-describedby="basic-icon-default-fullname2" readonly />
                                 </div>
                             </div>
                             <div class="mb-3">
@@ -81,7 +82,7 @@
                                 <div class="input-group input-group-merge">
 
                                     <textarea class="form-control" name="descripcion" placeholder="Breve descripcion del seminario"
-                                        aria-label="Breve descripcion del seminario" aria-describedby="basic-icon-default-fullname2" disabled>{{ $seminario->descripcion }}
+                                        aria-label="Breve descripcion del seminario" aria-describedby="basic-icon-default-fullname2" readonly>{{ $seminario->descripcion }}
                               </textarea>
                                 </div>
                             </div>
@@ -92,7 +93,7 @@
 
                                     <input type="number" class="form-control" name="max_personas"
                                         value="{{ $seminario->max_personas }}"
-                                        aria-describedby="basic-icon-default-fullname2" disabled />
+                                        aria-describedby="basic-icon-default-fullname2" readonly />
                                 </div>
                             </div>
                             <div class="mb-3">
@@ -100,77 +101,92 @@
                                 <div class="input-group input-group-merge">
                                     <input type="number" class="form-control" name="costo"
                                         value="{{ $seminario->costo }}" aria-describedby="basic-icon-default-fullname2"
-                                        disabled />
+                                        readonly />
                                 </div>
                             </div>
 
                             <div class="mb-3">
                                 <div class="row">
+
+                                    <label class="form-label" for="basic-icon-default-email">Duración del
+                                        curso</label>
+                                    <div class="input-group input-group-merge">
+                                        <span class="input-group-text"><i class="bx bx-calendar"></i></span>
+                                        <input type="text" name="duracion"
+                                            value="{{ $seminario->duracion . ' ' . $seminario->unidad_duracion }}"
+                                            class="form-control" aria-describedby="basic-icon-default-email2"
+                                            readonly />
+                                    </div>
+                                    <div class="form-text">Solo puedes introducir numeros en este campo</div>
+
+
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
                                     <div class="col-md-6">
-                                        <label class="form-label" for="basic-icon-default-email">Duración del
-                                            curso</label>
+                                        <label class="form-label" for="basic-icon-default-email">Fecha de Inicio del
+                                            Curso</label>
                                         <div class="input-group input-group-merge">
                                             <span class="input-group-text"><i class="bx bx-calendar"></i></span>
-                                            <input type="number" name="duracion" value="{{ $seminario->duracion }}"
-                                                class="form-control" aria-describedby="basic-icon-default-email2"
-                                                disabled />
+                                            <input type="datetime-local" id="fecha_habilitacion"
+                                                name="fecha_habilitacion" value="" class="form-control"
+                                                aria-describedby="basic-icon-default-email2" />
                                         </div>
-                                        <div class="form-text">Solo puedes introducir numeros en este campo</div>
+                                        <div class="form-text">Seleccione una fecha de inicio</div>
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label" for="basic-icon-default-email">unidad</label>
+                                        <label class="form-label" for="basic-icon-default-email">Fecha de culminacion
+                                            del Curso</label>
                                         <div class="input-group input-group-merge">
                                             <span class="input-group-text"><i class="bx bx-calendar"></i></span>
-                                            <select class="form-select " name="unidad_duracion" id=""
-                                                disabled>
-                                                <option
-                                                    value="Días"@php
-if($seminario->unidad_duracion=="Diás")
-                                            echo "Selected"; @endphp>
-                                                    Diás</option>
-                                                <option
-                                                    value="Meses"@php
-if($seminario->unidad_duracion=="Meses")
-                                        echo "Selected"; @endphp>
-                                                    Meses</option>
-                                                <option value="Años"
-                                                    @php
-if($seminario->unidad_duracion=="Años")
-                                        echo "Selected"; @endphp>
-                                                    Años</option>
-                                                <option
-                                                    value="Horas"@php
-if($seminario->unidad_duracion=="Horas")
-                                        echo "Selected"; @endphp>
-                                                    Horas</option>
-                                            </select>
+                                            <input type="datetime-local" id="fecha_culminacion"
+                                                name="fecha_culminacion" value="" class="form-control"
+                                                aria-describedby="basic-icon-default-email2" readonly />
                                         </div>
-
                                     </div>
                                 </div>
+
                             </div>
 
 
                             <div class="mb-3">
                                 <div class="row">
-                                    <div class="col-md-1">
+                                    <div class="col-md-3">
                                         <label for="" class="form-label">Cod. Docente</label>
-                                        <input type="text" class="form-control" name="id_docente" id=""
-                                            placeholder="#" disabled>
+                                        <input type="text" class="form-control" name="id_docente" id="id_docente"
+                                            placeholder="#" readonly required>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-9">
                                         <label for="" class="form-label">Nombre Docente</label>
-                                        <input type="text" class="form-control" name="name" id=""
-                                            placeholder="seleccione un docente" disabled>
+                                        <input type="text" class="form-control " name="name" id="name_docente"
+                                            placeholder="seleccione un docente" readonly required>
                                     </div>
                                 </div>
 
                             </div>
 
+                            <div class="row">
+                                <div class="col-md-7"><label class="form-label" for="basic-icon-default-phone">Subir
+                                        Fotografia del Curso</label>
+                                    <div class="input-group input-group-merge">
+                                        <input type="file" name="img" class="form-control" id='img_curso'
+                                            accept=".png, .jpeg, .jpg" />
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="row text-center">
+                                        <div>
+                                            <img id="show_curso_img"
+                                                src="{{ URL::asset('assets/img/imagen_vacia.jpg') }}" width="180px"
+                                                height="100px" style="border-radius: 10px">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
 
-
-                            <button type="submit" class="btn btn-primary">Modificar</button>
+                            <button type="submit" class="btn btn-primary">Habilitar Curso</button>
                             <a type="button"
                                 href="{{ route('registerCurso.show', ['folder' => 'seminarios', 'content' => 'seminariosTable', 'tipo' => $seminario->tipo_curso]) }}"
                                 class="btn btn-secondary">Cancelar</a>
@@ -183,10 +199,21 @@ if($seminario->unidad_duracion=="Horas")
             <div class="row">
                 <div class="" style="max-with: 500px; padding-left: 10px;padding-right: 10px">
                     <div class="card mb-4">
-                        <div class="row text-center" style="padding-top: 15px; padding-bottom: 15px">
-                            <div>
+                        <div class="row" style="padding-top: 15px; padding-bottom: 15px">
+                            <div class="col-md-5 text-center">
                                 <img id="docente_preview" src="{{ URL::asset('assets/img/userImage.png') }}"
                                     width="150px" height="150px" style="border-radius: 50%">
+                            </div>
+                            <div class="col-md-7 mt-3">
+                                <p>
+                                    <strong>COD. Docente:</strong> <span id='info_docID'></span>
+                                </p>
+                                <p>
+                                    <strong>Nombre Docente:</strong> <span id='info_docName'></span>
+                                </p>
+                                <p>
+                                    <strong>Nivel Academico:</strong> <span id='info_docDlv'></span>
+                                </p>
                             </div>
                         </div>
                         <div class="row">
@@ -198,6 +225,11 @@ if($seminario->unidad_duracion=="Horas")
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row">
+                <h3>
+                    Seleccione al un docente de la tabla
+                </h3>
             </div>
             <div class="row">
                 <table id="SemDocTable" class="table table-striped display" style="width:100%">
@@ -229,6 +261,14 @@ if($seminario->unidad_duracion=="Horas")
     </div>
 </div>
 <script>
+    $("#img_curso").on("change", function() {
+        var file = document.getElementById('img_curso').files[0];
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $("#show_curso_img").attr("src", e.target.result);
+        }
+        reader.readAsDataURL(file);
+    })
     $(document).ready(function() {
         var table = $('#SemDocTable').DataTable({
             dom: '<"top"f>rt<"bottom"p><"clear">',
@@ -252,16 +292,70 @@ if($seminario->unidad_duracion=="Horas")
                 $(this).removeClass('table-primary');
                 $('#doc_asig').addClass('d-none');
                 $("#docente_preview").attr("src", "{{ URL::asset('assets/img/userImage.png') }}")
-
+                $('#info_docID').html('')
+                $('#info_docName').html('')
+                $('#info_docDlv').html('')
             } else {
                 table.$('tr.table-primary').removeClass('table-primary');
                 $(this).addClass('table-primary');
                 var rowData = table.row(this).data();
                 $("#docente_preview").attr("src", "{{ URL::asset('storage/imgDocentes/') }}\/" +
                     rowData[0])
+                $('#info_docID').html(rowData[1])
+                $('#info_docName').html(rowData[2])
+                $('#info_docDlv').html(rowData[3])
                 $("#doc_asig").removeClass('d-none')
                 // console.log(rowData[0]);
             }
         });
+        $("#doc_asig").on('click', () => {
+            $('#id_docente').val($('#info_docID').text())
+            $('#name_docente').val($('#info_docName').text())
+        })
+        $('#enable_curso').on('submit', function(e) {
+
+            if ($('#id_docente').val() === "") {
+                e.preventDefault();
+                alert('Porfavor Seleccione a un docente de la tabla')
+                return false;
+            }
+
+        })
+        $('#fecha_habilitacion').on('change', function() {
+            fec = $(this).val();
+
+            var fechaOriginal = new Date(Date.parse(fec));
+            console.log("Fecha antigua: " + fechaOriginal);
+            switch ('{{ $seminario->unidad_duracion }}') {
+                case 'Días':
+                    var fechaNueva = new Date(fechaOriginal.setDate(fechaOriginal.getDate() +
+                        {{ $seminario->duracion }}));
+                    break;
+                case 'Meses':
+                    var fechaNueva = new Date(fechaOriginal.setMonth(fechaOriginal.getMonth() +
+                        {{ $seminario->duracion }}));
+                    break;
+                case 'Años':
+
+                    var fechaNueva = new Date(fechaOriginal.setFullYear(fechaOriginal.getFullYear() +
+                        {{ $seminario->duracion }}));
+                    break;
+                case 'Horas':
+                    var fechaNueva = new Date(fechaOriginal.setHours(fechaOriginal.getHours() +
+                        {{ $seminario->duracion }}));
+                    break;
+
+            }
+            console.log("Fecha Nueva: " + fechaNueva);
+            let dia = fechaNueva.getDate().toString().padStart(2, '0');
+            let mes = (fechaNueva.getMonth() + 1).toString().padStart(2, '0');
+            let anio = fechaNueva.getFullYear().toString();
+            let hora = fechaNueva.getHours().toString().padStart(2, '0');
+            let minutos = fechaNueva.getMinutes().toString().padStart(2, '0');
+            let fechaHoraLocal = `${anio}-${mes}-${dia}T${hora}:${minutos}`;
+            console.log(fechaHoraLocal);
+
+            $('#fecha_culminacion').val(fechaHoraLocal);
+        })
     });
 </script>

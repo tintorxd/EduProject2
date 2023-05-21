@@ -307,17 +307,17 @@ button.list-group-item-primary.active {
 
 .form-control:focus,
 .form-select:focus {
-  border-color: #696cff;
+  border-color: #86b7fe;
 }
 
 .input-group:focus-within .form-control,
 .input-group:focus-within .input-group-text {
-  border-color: #696cff;
+  border-color: #86b7fe;
 }
 
 .form-check-input:focus {
   border-color: #696cff;
-  box-shadow: 0 2px 4px 0 rgba(105, 108, 255, 0.4);
+  /* box-shadow: 0 2px 4px 0 rgba(105, 108, 255, 0.4); */
 }
 .form-check-input:disabled {
   background-color: #eceef1;
