@@ -61,3 +61,9 @@ $(document).on("click", ".openLogin", function () {
         $("#alert_ins_log").addClass("d-none");
     }, 5000);
 });
+
+$('input[name="tipo-pago"]').change(function () {
+    if (!$(this).is(":checked")) {
+        console.log("El radio no está seleccionado.");
+    }
+});

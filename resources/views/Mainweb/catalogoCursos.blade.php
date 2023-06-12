@@ -187,94 +187,106 @@
                 <div class="content-wrapper container">
                     <!-- Content -->
 
-                    <div class="row mt-3">
-                        @foreach ($cursos as $curso)
-                            <div class="col-md-3 mx-2 my-2">
-                                <div class="card card-curso" style="width: 18rem;" data-bs-trigger="manual"
-                                    data-bs-html="true" data-bs-toggle="popover">
-                                    @if ($curso->img != null)
-                                        <img src="{{ URL::asset('storage/imgCursos/' . $curso->img) }}"
-                                            class="card-img-top" alt="..." style="height: 160px;">
-                                    @else
-                                        <img src="{{ URL::asset('assets/img/imagen_vacia.jpg') }}" class="card-img-top"
-                                            alt="..." style="height: 160px;">
-                                    @endif
-                                    <div class="card-body">
-                                        <h5 class="card-title text-truncate">{{ $curso->titulo }}</h5>
-                                        <p class="card-text fw-light fs-6 text-truncate">
-                                            {{ $curso->names . ' ' . $curso->lastnames }}
-                                        </p>
-                                        <div class="star-rating">
-                                            4.7
-                                            <input id="star-1" type="radio" name="rating" value="1" />
-                                            <label for="star-1" title="1 star">
-                                                <i class="active fa fa-star"></i>
-                                            </label>
-                                            <input id="star-2" type="radio" name="rating" value="2" />
-                                            <label for="star-2" title="2 stars">
-                                                <i class="active fa fa-star"></i>
-                                            </label>
-                                            <input id="star-3" type="radio" name="rating" value="3" />
-                                            <label for="star-3" title="3 stars">
-                                                <i class="active fa fa-star"></i>
-                                            </label>
-                                            <input id="star-4" type="radio" name="rating" value="4" />
-                                            <label for="star-4" title="4 stars">
-                                                <i class="active fa fa-star"></i>
-                                            </label>
-                                            <input id="star-5" type="radio" name="rating" value="5" />
-                                            <label for="star-5" title="5 stars">
-                                                <i class="active fa fa-star"></i>
-                                            </label>
-                                        </div>
+                    @if ($cursos)
+                        <div class="row mt-3">
 
-                                        <div class="fs-4  fst-italic mt-1">
-                                            <div class="row">
 
-                                                @if (auth('students')->check())
-                                                    <div class="col-md-6  fs-2">
-                                                        <strong>
-                                                            {{ $curso->costo }} Bs.
-                                                        </strong>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <a role="button"
-                                                            href="{{ route('detalleCurso.show', ['id' => $curso->id_ch]) }}"
-                                                            class="btn btn-primary">Inscribirme</a>
-                                                    </div>
-                                                @else
-                                                    <div class="col-md-6 fs-2">
-                                                        <strong>
-                                                            {{ $curso->costo }} Bs.
-                                                        </strong>
-                                                    </div>
-                                                    <div class="col-md-6">
+                            @foreach ($cursos as $curso)
+                                <div class="col-md-3 mx-2 my-2">
+                                    <div class="card card-curso" style="width: 18rem;" data-bs-trigger="manual"
+                                        data-bs-html="true" data-bs-toggle="popover">
+                                        @if ($curso->img != null)
+                                            <img src="{{ URL::asset('storage/imgCursos/' . $curso->img) }}"
+                                                class="card-img-top" alt="..." style="height: 160px;">
+                                        @else
+                                            <img src="{{ URL::asset('assets/img/imagen_vacia.jpg') }}"
+                                                class="card-img-top" alt="..." style="height: 160px;">
+                                        @endif
+                                        <div class="card-body">
+                                            <h5 class="card-title text-truncate">{{ $curso->titulo }}</h5>
+                                            <p class="card-text fw-light fs-6 text-truncate">
+                                                {{ $curso->names . ' ' . $curso->lastnames }}
+                                            </p>
+                                            <div class="star-rating">
+                                                4.7
+                                                <input id="star-1" type="radio" name="rating" value="1" />
+                                                <label for="star-1" title="1 star">
+                                                    <i class="active fa fa-star"></i>
+                                                </label>
+                                                <input id="star-2" type="radio" name="rating" value="2" />
+                                                <label for="star-2" title="2 stars">
+                                                    <i class="active fa fa-star"></i>
+                                                </label>
+                                                <input id="star-3" type="radio" name="rating" value="3" />
+                                                <label for="star-3" title="3 stars">
+                                                    <i class="active fa fa-star"></i>
+                                                </label>
+                                                <input id="star-4" type="radio" name="rating" value="4" />
+                                                <label for="star-4" title="4 stars">
+                                                    <i class="active fa fa-star"></i>
+                                                </label>
+                                                <input id="star-5" type="radio" name="rating" value="5" />
+                                                <label for="star-5" title="5 stars">
+                                                    <i class="active fa fa-star"></i>
+                                                </label>
+                                            </div>
 
-                                                        <button type="button"
-                                                            class="btn btn-primary openLogin">Inscribirme</button>
-                                                    </div>
-                                                @endif
+                                            <div class="fs-4  fst-italic mt-1">
+                                                <div class="row">
 
+                                                    @if (auth('students')->check())
+                                                        <div class="col-md-6  fs-2">
+                                                            <strong>
+                                                                {{ $curso->costo }} Bs.
+                                                            </strong>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <a role="button"
+                                                                href="{{ route('detalleCurso.show', ['id' => $curso->id_ch]) }}"
+                                                                class="btn btn-primary">Inscribirme</a>
+                                                        </div>
+                                                    @else
+                                                        <div class="col-md-6 fs-2">
+                                                            <strong>
+                                                                {{ $curso->costo }} Bs.
+                                                            </strong>
+                                                        </div>
+                                                        <div class="col-md-6">
+
+                                                            <button type="button"
+                                                                class="btn btn-primary openLogin">Inscribirme</button>
+                                                        </div>
+                                                    @endif
+
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="popercard" style="display: none;">
-                                    <h3>{{ $curso->titulo }}</h3>
-                                    <p>Lo expone: {{ $curso->names . ' ' . $curso->lastnames }}.</p>
-                                    <p>Duracion de {{ $curso->duracion . ' ' . $curso->unidad_duracion }}</p>
+                                    <div class="popercard" style="display: none;">
+                                        <h3>{{ $curso->titulo }}</h3>
+                                        <p>Lo expone: {{ $curso->names . ' ' . $curso->lastnames }}.</p>
+                                        <p>Duracion de {{ $curso->duracion . ' ' . $curso->unidad_duracion }}</p>
 
-                                    <p>{{ $curso->descripcion }}</p>
-                                    <ul>
-                                        <li>Elemento 1</li>
-                                        <li>Elemento 2</li>
-                                        <li>Elemento 3</li>
-                                    </ul>
-                                </div>
+                                        <p>{{ $curso->descripcion }}</p>
+                                        <ul>
+                                            <li>Elemento 1</li>
+                                            <li>Elemento 2</li>
+                                            <li>Elemento 3</li>
+                                        </ul>
+                                    </div>
 
-                            </div>
-                        @endforeach
-                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <div class="text-center" style="margin-top: 40px">
+                            <h1>
+                                Aun no hay cursos habilitados
+                            </h1>
+
+                        </div>
+
+                    @endif
                     {{-- @include($sub_page) --}}
 
                     <!-- / Content -->

@@ -32,8 +32,8 @@
                     <li class="nav-item main-nav">
                         <a class="nav-link active" aria-current="page" href="{{ route('main.page') }}">Inicio</a>
                     </li>
-                    <li class="nav-item main-nav dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink"
+                    <li class="nav-item main-nav dropdown ">
+                        <a class="nav-link dropdown-toggle hide-arrow" href="#" id="navbarDarkDropdownMenuLink"
                             role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Cursos
                         </a>

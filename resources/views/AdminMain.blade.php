@@ -58,7 +58,7 @@
     <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"/>
     <link href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css"/>
     
-    @vite(['resources/css/app.scss', 'resources/js/app.js'])
+    @vite(['resources/css/app.scss', 'resources/js/adminApp.js'])
     <!-- Icons. Uncomment required icon fonts -->
     @vite(['resources/fonts/boxicons.css'])
     

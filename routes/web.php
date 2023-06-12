@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AdministradoresController;
 use App\Http\Controllers\CursosController;
+use App\Http\Controllers\PaymentController;
 use App\Models\Docentes;
 
 /*
@@ -30,6 +31,13 @@ Route::get('/', function () {
 Route::get('/show-curso-sell/{tipo}', [CursosController::class, "showCursotoSell"])->name('Mainweb.showCurso');
 // Muestra el detalle de un curso seleccionado
 Route::get('/show-curso-detail/{id}', [CursosController::class, "showCursoDetail"])->name('detalleCurso.show');
+// Muestra las opciones de pago para la compra del curso
+Route::get('/show-curso-buy/{id}', [CursosController::class, "showCursoBuy"])->name('buyCurso.show');
+// Rutas para Pagos 
+Route::get('/buy-curso-paypal/{id}', [PaymentController::class, "PayPalPayment"])->name('buyCurso.paypal');
+Route::get('/paypal-status/{id}', [PaymentController::class, "PayPalStatus"])->name('buyCurso.status');
+
+
 
 
 

@@ -179,15 +179,25 @@ class CursosController extends Controller
     public function showCursotoSell($tipo)
     {
 
-        $result = DB::select('SELECT ch.id as "id_ch", c.*, ch.fecha_habilitacion, ch.fecha_culminacion, ch.total_inscritos,  ch.img,c.descripcion, d.names,d.lastnames, ch.estado FROM `cursos_habilitados` as ch INNER JOIN cursos as c on c.id=ch.id_curso INNER JOIN docentes as d on d.id = ch.id_docente where c.tipo_curso = ? ', [$tipo]);
+        $result = DB::select('SELECT ch.id as "id_ch", c.*, ch.fecha_habilitacion, ch.fecha_culminacion, ch.total_inscritos,  ch.img,c.descripcion, d.names,d.lastnames, ch.estado FROM `cursos_habilitados` as ch INNER JOIN cursos as c on c.id=ch.id_curso INNER JOIN docentes as d on d.id = ch.id_docente where c.tipo_curso = ? and ch.estado = 0 or ch.estado =1', [$tipo]);
         return view('Mainweb/catalogoCursos')->with(['cursos' => $result]);
     }
 
     public function showCursoDetail($id)
     {
-
-        $result = DB::select('SELECT ch.id as "id_ch", c.*, ch.updated_at,ch.fecha_habilitacion, ch.fecha_culminacion, ch.total_inscritos,  ch.img,c.descripcion, d.names,d.lastnames,d.img as imgDocente,d.degree_lv, ch.estado FROM `cursos_habilitados` as ch INNER JOIN cursos as c on c.id=ch.id_curso INNER JOIN docentes as d on d.id = ch.id_docente where ch.id = ? ', [$id]);
-        // print_r($result);
-        return view('Mainweb/detalleCurso')->with(['curso' => $result[0]]);
+        if (auth('students')->check()) {
+            $result = DB::select('SELECT ch.id as "id_ch", c.*, ch.updated_at,ch.fecha_habilitacion, ch.fecha_culminacion, ch.total_inscritos,  ch.img,c.descripcion, d.names,d.lastnames,d.img as imgDocente,d.degree_lv, ch.estado FROM `cursos_habilitados` as ch INNER JOIN cursos as c on c.id=ch.id_curso INNER JOIN docentes as d on d.id = ch.id_docente where ch.id = ? ', [$id]);
+            // print_r($result);
+            return view('Mainweb/detalleCurso')->with(['curso' => $result[0]]);
+        }
+        return redirect('/');
+    }
+    public function showCursoBuy($id)
+    {
+        if (auth('students')->check()) {
+            $result = DB::select('SELECT ch.id as "id_ch", c.*, ch.updated_at,ch.fecha_habilitacion, ch.fecha_culminacion, ch.total_inscritos,  ch.img,c.descripcion, d.names,d.lastnames,d.img as imgDocente,d.degree_lv, ch.estado FROM `cursos_habilitados` as ch INNER JOIN cursos as c on c.id=ch.id_curso INNER JOIN docentes as d on d.id = ch.id_docente where ch.id = ? ', [$id]);
+            return view('Mainweb/buyCurso')->with(['curso' => $result[0]]);
+        }
+        return redirect('/');
     }
 }

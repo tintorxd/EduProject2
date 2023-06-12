@@ -40,7 +40,7 @@ class LoginController extends Controller
 
 
         auth("students")->logout();
-        return back();
+        return redirect()->to('/');
     }
     public function destroyAdmin()
     {
