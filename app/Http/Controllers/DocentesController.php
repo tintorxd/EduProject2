@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Administradores;
 use App\Models\Docentes;
+use App\Models\Estudiantes;
+use App\Models\Estudiantes_inscritos;
+use App\Models\Cursos_habilitados;
 use Illuminate\Http\Request;
 
 class DocentesController extends Controller
@@ -15,6 +18,38 @@ class DocentesController extends Controller
      */
     public function index()
     {
+        $cursos_asignados = Cursos_habilitados::select('cursos_habilitados.*', 'cursos.*')->join('cursos', 'cursos_habilitados.id', '=', 'cursos.id')->where('cursos_habilitados.id_docente', '=', auth("docenteadmin")->user()->id)->get();
+
+        $seminarios = array_filter($cursos_asignados->toArray(), function ($curso) {
+            return $curso['tipo_curso'] == 'seminario';
+        });
+        $talleres = array_filter($cursos_asignados->toArray(), function ($curso) {
+            return $curso['tipo_curso'] == 'taller';
+        });
+        $capacitaciones = array_filter($cursos_asignados->toArray(), function ($curso) {
+            return $curso['tipo_curso'] == 'capacitacion';
+        });
+        // dump($seminarios[0]['id']);
+        return view("docenteWeb/docente_main")->with(['seminarios' => $seminarios, 'talleres' => $talleres, 'capacitaciones' => $capacitaciones]);
+    }
+    public function curso_manager_index($id)
+    {
+        $curso = Cursos_habilitados::select('cursos_habilitados.*', 'cursos.*')->join('cursos', 'cursos_habilitados.id', '=', 'cursos.id')->where('cursos_habilitados.id', '=', $id)->get();
+        $estudiantes = Estudiantes_inscritos::select('estudiantes_inscritos.*', 'estudiantes.*')->join('estudiantes', 'estudiantes_inscritos.id_est', '=', 'estudiantes.id')->where('estudiantes_inscritos.id_ch', '=', $id)->get();
+        $notas_estudiantes = 0;
+        $cursos_asignados = Cursos_habilitados::select('cursos_habilitados.*', 'cursos.*')->join('cursos', 'cursos_habilitados.id', '=', 'cursos.id')->where('cursos_habilitados.id_docente', '=', auth("docenteadmin")->user()->id)->get();
+
+        $seminarios = array_filter($cursos_asignados->toArray(), function ($curso) {
+            return $curso['tipo_curso'] == 'seminario';
+        });
+        $talleres = array_filter($cursos_asignados->toArray(), function ($curso) {
+            return $curso['tipo_curso'] == 'taller';
+        });
+        $capacitaciones = array_filter($cursos_asignados->toArray(), function ($curso) {
+            return $curso['tipo_curso'] == 'capacitacion';
+        });
+        // dump($seminarios);
+        return view("docenteWeb/curso_manager")->with(['seminarios' => $seminarios, 'talleres' => $talleres, 'capacitaciones' => $capacitaciones, 'curso' => $curso, 'estudiantes' => $estudiantes]);
     }
 
     /**

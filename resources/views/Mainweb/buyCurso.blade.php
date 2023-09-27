@@ -4,31 +4,7 @@
 
 @section('contenido')
     <div class="cointainer" style="height: 600px">
-        <div class="mt-3 d-flex ">
 
-            @if (session('status') == 'error')
-                <div class="alert alert-danger d-flex align-items-center" role="alert">
-                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
-                        <use xlink:href="#check-circle-fill" />
-                    </svg>
-                    <div>
-                        {{ session('mensage') }}
-                    </div>
-
-                </div>
-            @endif
-            @if (session('status') == 'success')
-                <div class="alert alert-success  d-flex align-items-center" role="alert">
-                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
-                        <use xlink:href="#check-circle-fill" />
-                    </svg>
-                    <div>
-                        {{ session('mensage') }}
-                    </div>
-
-                </div>
-            @endif
-        </div>
         <div class="row">
             <div class="col-md-6" style="margin-top: 60px">
                 <div class="text-center my-4">
@@ -112,7 +88,8 @@
     <script>
         document.getElementById('btn-buy').addEventListener('click', function() {
             if (document.getElementById('radio-1').checked) {
-                window.location.href = "{{ route('buyCurso.paypal', ['id' => $curso->id_ch]) }}";
+                window.location.href =
+                    "{{ route('buyCurso.paypal', ['id' => $curso->id_ch, 'monto' => $curso->costo]) }}";
             } else if (document.getElementById('radio-2').checked) {
                 console.log("2");
             }

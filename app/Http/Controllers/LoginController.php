@@ -13,6 +13,18 @@ class LoginController extends Controller
     {
         return view("LoginForm");
     }
+    public function authenticationDocente()
+    {
+
+        if (auth("docenteadmin")->attempt(request(['email', 'password']))) {
+
+            // echo "exitoso";
+            return redirect()->route('docente.mainpage');
+        } else {
+
+            return redirect()->route('docente.login')->with(['error' => true]);;
+        }
+    }
     public function authenticationAdmin()
     {
 
@@ -48,5 +60,12 @@ class LoginController extends Controller
 
         auth('webadmin')->logout();
         return redirect()->to('/adminweb');
+    }
+    public function destroyDocente()
+    {
+
+
+        auth('docenteadmin')->logout();
+        return redirect()->to('/docente/login');
     }
 }

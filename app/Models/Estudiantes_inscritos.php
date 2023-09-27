@@ -8,11 +8,11 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Cursos_habilitados extends Model
+class Estudiantes_inscritos extends Model
 {
-
     use HasApiTokens, HasFactory, Notifiable;
     use SoftDeletes;
+
     protected $dates = ['deleted_at'];
     /**
      * The attributes that are mass assignable.
@@ -20,15 +20,10 @@ class Cursos_habilitados extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'id_curso',
-        'id_docente',
-        'fecha_habilitacion',
-        'fecha_culminacion',
-        'total_inscritos',
-        'img',
-        'dias',
-        'horario',
-        'estado'
-
+        'id_ch', // id tabla cursos habilitados
+        'id_est', // id tabla estudiantes
+        'fecha_inscripcion',
+        'monto_pagado',
+        'comprobante'
     ];
 }

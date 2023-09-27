@@ -5,6 +5,34 @@
 @section('contenido')
 
     <div class="encabezado-detalle">
+        <div class="row">
+            <div class="col-md-3 align-start">
+                @if (session('status') == 'error')
+                    <div class="alert alert-danger alert-dismissible d-flex align-items-center" role="alert">
+                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+                            <use xlink:href="#check-circle-fill" />
+                        </svg>
+                        <div>
+                            {{ session('mensage') }}
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+                @if (session('status') == 'success')
+                    <div class="alert alert-success alert-dismissible d-flex align-items-center" role="alert">
+                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img"
+                            aria-label="Success:">
+                            <use xlink:href="#check-circle-fill" />
+                        </svg>
+                        <div>
+                            {{ session('mensage') }}
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+            </div>
+            <div class="col-md-9"></div>
+        </div>
 
         <div class="card" id="card-detalle">
 

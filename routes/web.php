@@ -9,6 +9,7 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\AdministradoresController;
 use App\Http\Controllers\CursosController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\EstudiantesInscritosController;
 use App\Models\Docentes;
 
 /*
@@ -34,8 +35,28 @@ Route::get('/show-curso-detail/{id}', [CursosController::class, "showCursoDetail
 // Muestra las opciones de pago para la compra del curso
 Route::get('/show-curso-buy/{id}', [CursosController::class, "showCursoBuy"])->name('buyCurso.show');
 // Rutas para Pagos 
-Route::get('/buy-curso-paypal/{id}', [PaymentController::class, "PayPalPayment"])->name('buyCurso.paypal');
-Route::get('/paypal-status/{id}', [PaymentController::class, "PayPalStatus"])->name('buyCurso.status');
+Route::get('/buy-curso-paypal/{id}/{monto}', [PaymentController::class, "PayPalPayment"])->name('buyCurso.paypal');
+Route::get('/paypal-status/{id}/{id_est}/{monto}', [PaymentController::class, "PayPalStatus"])->name('buyCurso.status');
+Route::get('/payment-confirm-status/{id}/{id_est}', [EstudiantesInscritosController::class, "create"])->name('buyCurso.confirm');
+
+// Web Estudiantes
+Route::get('/cursos-habilitados/estudiante/{id}',  [CursosController::class, "showEnabledCursoEstudiante"])->name("webestu.cursos");
+
+
+// Web para Docentes
+// Redirecciona a la pagina de Login
+Route::get('/docente/login', function () {
+    return view('docenteWeb/docente_login');
+})->name("docente.login");
+// Redirecciona a la autenticacion del docente
+Route::post('/auth/docente', [LoginController::class, "authenticationDocente"])->name("login.auth_docente");
+// Destruye la session del Docente
+Route::get('/logout/docente', [LoginController::class, "destroyDocente"])->name("session.destroy_docente");
+// Solo pueden ingresar logueados
+Route::group(['middleware' => 'auth.custom'], function () {
+    Route::get('/docente/mainpage',  [DocentesController::class, "index"])->name("docente.mainpage");
+    Route::get('/docente/curso_manager/{id}',  [DocentesController::class, "curso_manager_index"])->name("docente.curso_manager");
+});
 
 
 

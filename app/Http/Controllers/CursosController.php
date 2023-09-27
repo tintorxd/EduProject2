@@ -8,6 +8,7 @@ use App\Models\Docentes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Symfony\Component\Console\Input\Input;
 
 class CursosController extends Controller
 {
@@ -137,7 +138,20 @@ class CursosController extends Controller
     }
     public function enableCurso(Request $request, $folder, $content, $tipo)
     {
+
+
         try {
+
+            $horariosChecks = array();
+            $calendarChecks = $request->input('check-calendar');
+            foreach ($calendarChecks as $key => $value) {
+                if ($request->input('hora-' . $value)) {
+                    array_push($horariosChecks, $request->input('hora-' . $value) . " - " . $request->input('fin-' . $value));
+                }
+            }
+            $horario = implode(',', $horariosChecks);
+            $calendar = implode(',', $calendarChecks);
+
             $img =  $request->file('img');
             $filename = Str::random(40) . '.' . $img->extension();
             $img->storeAs('public/imgCursos', $filename);
@@ -152,7 +166,7 @@ class CursosController extends Controller
                 throw new \Exception("La fecha de habilitacion no puede ser menos a la fecha actual");
             }
             $estado = 0;
-            Cursos_habilitados::create(['estado' => $estado, 'img' => $filename, 'id_curso' => $id_curso, 'id_docente' => $id_docente, 'fecha_habilitacion' => $fecha_habilitacion, 'fecha_culminacion' => $fecha_culminacion]);
+            Cursos_habilitados::create(['horario' => $horario, 'dias' => $calendar, 'estado' => $estado, 'img' => $filename, 'id_curso' => $id_curso, 'id_docente' => $id_docente, 'fecha_habilitacion' => $fecha_habilitacion, 'fecha_culminacion' => $fecha_culminacion]);
 
             $cursos = Cursos::all()->where('tipo_curso', '=', $tipo);
             return back()->with(['sub_page' => $folder . '/' . $content, 'cursos' => $cursos, 'action' => 'success', 'mensage' => 'Curso habilitado exitosamente']);
@@ -179,7 +193,7 @@ class CursosController extends Controller
     public function showCursotoSell($tipo)
     {
 
-        $result = DB::select('SELECT ch.id as "id_ch", c.*, ch.fecha_habilitacion, ch.fecha_culminacion, ch.total_inscritos,  ch.img,c.descripcion, d.names,d.lastnames, ch.estado FROM `cursos_habilitados` as ch INNER JOIN cursos as c on c.id=ch.id_curso INNER JOIN docentes as d on d.id = ch.id_docente where c.tipo_curso = ? and ch.estado = 0 or ch.estado =1', [$tipo]);
+        $result = DB::select('SELECT ch.id as "id_ch", c.*, ch.fecha_habilitacion, ch.fecha_culminacion, ch.total_inscritos,  ch.img,c.descripcion, d.names,d.lastnames, ch.estado FROM `cursos_habilitados` as ch INNER JOIN cursos as c on c.id=ch.id_curso INNER JOIN docentes as d on d.id = ch.id_docente where c.tipo_curso = ? and (ch.estado = 0 or ch.estado =1)', [$tipo]);
         return view('Mainweb/catalogoCursos')->with(['cursos' => $result]);
     }
 
@@ -197,6 +211,15 @@ class CursosController extends Controller
         if (auth('students')->check()) {
             $result = DB::select('SELECT ch.id as "id_ch", c.*, ch.updated_at,ch.fecha_habilitacion, ch.fecha_culminacion, ch.total_inscritos,  ch.img,c.descripcion, d.names,d.lastnames,d.img as imgDocente,d.degree_lv, ch.estado FROM `cursos_habilitados` as ch INNER JOIN cursos as c on c.id=ch.id_curso INNER JOIN docentes as d on d.id = ch.id_docente where ch.id = ? ', [$id]);
             return view('Mainweb/buyCurso')->with(['curso' => $result[0]]);
+        }
+        return redirect('/');
+    }
+    public function showEnabledCursoEstudiante($id)
+    {
+        if (auth('students')->check()) {
+            $result = DB::select('SELECT ch.id as "id_ch", ch.img,c.*, ch.fecha_habilitacion, ch.fecha_culminacion,  d.names,d.lastnames, ei.fecha_inscripcion FROM `cursos_habilitados` as ch INNER JOIN cursos as c on c.id=ch.id_curso INNER JOIN docentes as d on d.id = ch.id_docente INNER JOIN estudiantes_inscritos as ei on ei.id_ch = ch.id where ei.id_est = ? ', [auth('students')->user()->id]);
+            $curso = DB::select('SELECT ch.id as "id_ch", c.*,ch.dias ,ch.horario  , ch.updated_at,ch.fecha_habilitacion, ch.fecha_culminacion, ch.total_inscritos,  ch.img,c.descripcion, d.names,d.lastnames,d.img as imgDocente,d.degree_lv, ch.estado FROM `cursos_habilitados` as ch INNER JOIN cursos as c on c.id=ch.id_curso INNER JOIN docentes as d on d.id = ch.id_docente where ch.id = ? ', [$id]);
+            return view('webEstudiante/contenidoCursosHabilitados')->with(['id' => $id, 'cursos' => $result, 'detalle_curso' => $curso]);
         }
         return redirect('/');
     }

@@ -23,6 +23,10 @@ return new class extends Migration
             $table->date('fecha_culminacion');
             $table->integer('total_inscritos')->default(1);
             $table->string('img')->nullable();
+            $table->string('dias')->nullable();
+            $table->string('horario')->nullable();
+            $table->integer('estado')->nullable();
+
             $table->softDeletes();
             $table->timestamps();
         });

@@ -47,23 +47,24 @@
     @endphp
 
     <!-- Basic Layout -->
-    <div class="row">
-        <div class="col-md-6">
+    <form id='enable_curso'
+        action="{{ route('registerCurso.enable', ['folder' => 'talleres', 'content' => 'talleresEnableTable', 'tipo' => 'taller']) }}"
+        method="post" enctype="multipart/form-data">
+        @csrf
+        <div class="row">
+            <div class="col-md-6">
 
 
 
 
-            <div class="" style="max-with: 500px; padding-left: 10px;padding-right: 10px">
-                <div class="card mb-4">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Nuevo curso</h5>
-                        <small class="text-muted float-end">Taller</small>
-                    </div>
-                    <div class="card-body">
-                        <form id='enable_curso'
-                            action="{{ route('registerCurso.enable', ['folder' => 'talleres', 'content' => 'talleresEnableTable', 'tipo' => 'taller']) }}"
-                            method="post" enctype="multipart/form-data">
-                            @csrf
+                <div class="" style="max-with: 500px; padding-left: 10px;padding-right: 10px">
+                    <div class="card mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Nuevo curso</h5>
+                            <small class="text-muted float-end">Taller</small>
+                        </div>
+                        <div class="card-body">
+
                             <input type="hidden" name="id_curso" value="{{ $taller->id }}">
                             <div class="mb-3">
                                 <label class="form-label" for="basic-icon-default-fullname">Titulo del Taller</label>
@@ -190,75 +191,314 @@
                             <a type="button"
                                 href="{{ route('registerCurso.show', ['folder' => 'talleres', 'content' => 'talleresTable', 'tipo' => $taller->tipo_curso]) }}"
                                 class="btn btn-secondary">Cancelar</a>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="row">
-                <div class="" style="max-with: 500px; padding-left: 10px;padding-right: 10px">
-                    <div class="card mb-4">
-                        <div class="row" style="padding-top: 15px; padding-bottom: 15px">
-                            <div class="col-md-5 text-center">
-                                <img id="docente_preview" src="{{ URL::asset('assets/img/userImage.png') }}"
-                                    width="150px" height="150px" style="border-radius: 50%">
-                            </div>
-                            <div class="col-md-7 mt-3">
-                                <p>
-                                    <strong>COD. Docente:</strong> <span id='info_docID'></span>
-                                </p>
-                                <p>
-                                    <strong>Nombre Docente:</strong> <span id='info_docName'></span>
-                                </p>
-                                <p>
-                                    <strong>Nivel Academico:</strong> <span id='info_docDlv'></span>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="d-grid gap-2">
-                                <button type="button" name="" id="doc_asig"
-                                    class="btn btn-primary d-none">Asignar
-                                    Docente</button>
-                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <h3>
-                    Seleccione al un docente de la tabla
-                </h3>
-            </div>
-            <div class="row">
-                <table id="TallerDocTable" class="table table-striped display" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th style="display: none"></th>
-                            <th>Cod. Id</th>
-                            <th>Docente</th>
-                            <th>Grado Académico</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (session('docentes') as $docente)
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="" style="max-with: 500px; padding-left: 10px;padding-right: 10px">
+                        <div class="card mb-4">
+                            <div class="row" style="padding-top: 15px; padding-bottom: 15px">
+                                <div class="col-md-5 text-center">
+                                    <img id="docente_preview" src="{{ URL::asset('assets/img/userImage.png') }}"
+                                        width="150px" height="150px" style="border-radius: 50%">
+                                </div>
+                                <div class="col-md-7 mt-3">
+                                    <p>
+                                        <strong>COD. Docente:</strong> <span id='info_docID'></span>
+                                    </p>
+                                    <p>
+                                        <strong>Nombre Docente:</strong> <span id='info_docName'></span>
+                                    </p>
+                                    <p>
+                                        <strong>Nivel Academico:</strong> <span id='info_docDlv'></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="d-grid gap-2">
+                                    <button type="button" name="" id="doc_asig"
+                                        class="btn btn-primary d-none">Asignar
+                                        Docente</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <h3>
+                        Seleccione al un docente de la tabla
+                    </h3>
+                </div>
+                <div class="row">
+                    <table id="TallerDocTable" class="table table-striped display" style="width:100%">
+                        <thead>
                             <tr>
-                                <td style="display:none">
-                                    {{ $docente->img }}
-                                </td>
-                                <td>{{ $docente->id }}</td>
-                                <td>{{ $docente->names . ' ' . $docente->lastnames }}</td>
-                                <td>{{ $docente->degree_lv }}</td>
-
+                                <th style="display: none"></th>
+                                <th>Cod. Id</th>
+                                <th>Docente</th>
+                                <th>Grado Académico</th>
                             </tr>
-                        @endforeach
+                        </thead>
+                        <tbody>
+                            @foreach (session('docentes') as $docente)
+                                <tr>
+                                    <td style="display:none">
+                                        {{ $docente->img }}
+                                    </td>
+                                    <td>{{ $docente->id }}</td>
+                                    <td>{{ $docente->names . ' ' . $docente->lastnames }}</td>
+                                    <td>{{ $docente->degree_lv }}</td>
 
-                    </tbody>
-                </table>
+                                </tr>
+                            @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+                <hr>
+                <div class="row card p-2">
+                    <h3>Que dias será el curso?</h3>
+                    <p>Considere tambien el horario de cada dia, este horario se dará a conocer a los alumnos!</p>
+                    <div class="inpurCheck-group">
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input calendar-check" type="checkbox" id="check-lunes"
+                                        name="check-calendar[]" data-day="lunes" value="lunes">
+                                    <label class="form-check-label fs-4" for="check-lunes">Lunes</label>
+
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" type="time" id="hora-lunes" name="hora-lunes"
+                                        disabled>
+                                    <label for="hora-lunes">Hora de finalización</label>
+                                </div>
+
+
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" type="time" id="fin-lunes" name="fin-lunes"
+                                        disabled>
+                                    <label for="fin-lunes">Hora de finalización</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input calendar-check" type="checkbox" id="check-martes"
+                                        name="check-calendar[]" data-day="martes" value="martes">
+                                    <label class="form-check-label fs-4" for="check-martes">Martes</label>
+
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" type="time" id="hora-martes" name="hora-martes"
+                                        disabled>
+
+                                    <label for="hora-martes">Hora de finalización</label>
+                                </div>
+
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" type="time" id="fin-martes" name="fin-martes"
+                                        disabled>
+                                    <label for="fin-martes">Hora de finalización</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input calendar-check" type="checkbox"
+                                        id="check-miercoles" name="check-calendar[]" data-day="miercoles"
+                                        value="miercoles">
+                                    <label class="form-check-label fs-4" for="check-miercoles">Miercoles</label>
+
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" type="time" id="hora-miercoles"
+                                        name="hora-miercoles" disabled>
+                                    <label for="hora-miercoles">Hora de finalización</label>
+                                </div>
+
+
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" type="time" id="fin-miercoles"
+                                        name="fin-miercoles" disabled>
+                                    <label for="fin-miercoles">Hora de finalización</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input calendar-check" type="checkbox" id="check-jueves"
+                                        name="check-calendar[]" data-day="jueves" value="jueves">
+                                    <label class="form-check-label fs-4" for="check-jueves">Jueves</label>
+
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" type="time" id="hora-jueves" name="hora-jueves"
+                                        disabled>
+                                    <label for="hora-jueves">Hora de finalización</label>
+                                </div>
+
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" type="time" id="fin-jueves" name="fin-jueves"
+                                        disabled>
+                                    <label for="fin-jueves">Hora de finalización</label>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input calendar-check" type="checkbox" id="check-viernes"
+                                        name="check-calendar[]" data-day="viernes" value="viernes">
+                                    <label class="form-check-label fs-4" for="check-viernes">Viernes</label>
+
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" type="time" id="hora-viernes" name="hora-viernes"
+                                        disabled>
+                                    <label for="hora-viernes">Hora de finalización</label>
+                                </div>
+
+
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" type="time" id="fin-viernes" name="fin-viernes"
+                                        disabled>
+                                    <label for="fin-viernes">Hora de finalización</label>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input calendar-check" type="checkbox" id="check-sabado"
+                                        name="check-calendar[]" data-day="sabado" value="sabado">
+                                    <label class="form-check-label fs-4" for="check-sabado">Sabado</label>
+
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" type="time" id="hora-sabado" name="hora-sabado"
+                                        disabled>
+                                    <label for="hora-sabado">Hora de finalización</label>
+                                </div>
+
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" type="time" id="fin-sabado" name="fin-sabado"
+                                        disabled>
+                                    <label for="fin-sabado">Hora de finalización</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input calendar-check" type="checkbox" id="check-domingo"
+                                        name="check-calendar[]" data-day="domingo" value="domingo">
+                                    <label class="form-check-label fs-4" for="check-domingo">Domingo</label>
+
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" type="time" id="hora-domingo" name="hora-domingo"
+                                        disabled>
+                                    <label for="hora-domingo">Hora de Inicio</label>
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" type="time" id="fin-domingo" name="fin-domingo"
+                                        disabled>
+                                    <label for="fin-domingo">Hora de finalización</label>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value=""
+                                    id="check-mismo-horario">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Marcar todos con el mismo horario
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-floating mb-3">
+                                <input class="form-control" type="time" name="" id="mismo-horario"
+                                    disabled>
+                                <label for="mismo-horario">Hora de incio</label>
+                            </div>
+
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-floating mb-3">
+                                <input class="form-control" type="time" name="" id="mismo-finhorario"
+                                    disabled>
+                                <label for="mismo-finhorario">Hora de Finalización</label>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+
+                </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 <script>
     $("#img_curso").on("change", function() {
@@ -357,5 +597,6 @@
 
             $('#fecha_culminacion').val(fechaHoraLocal);
         })
+
     });
 </script>

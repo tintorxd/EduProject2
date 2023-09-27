@@ -64,8 +64,11 @@
                                 {{ auth('students')->user()->names . ' ' . auth('students')->user()->lastnames }}
 
                             </button>
-                            <div class="dropdown-menu" aria-labelledby="triggerId">
-                                <button class="dropdown-item" href="#">Action</button>
+                            <div class="dropdown-menu" aria-labelledby="triggerId" style="left: -50% !important;">
+                                <a class="dropdown-item" href="{{ route('webestu.cursos', ['id' => 0]) }}">Cursos
+                                    Adquiridos</a>
+                                <a class="dropdown-item" href="#">Notas de Cursos</a>
+                                <a class="dropdown-item" href="#">Historial de Compras</a>
                                 <hr>
                                 <button class="dropdown-item">Cerrar
                                     Sesion</button>

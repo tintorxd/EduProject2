@@ -18,6 +18,16 @@
     margin: auto;
     padding: 30px;
 }
+.main-contenido-habilitado {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    margin: auto;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
 .listado-contenido ul {
     padding-left: 5px;
 }
@@ -28,6 +38,11 @@
 .detalle-curso-contenido {
     border: 1px solid #e5e5e5;
     width: 54%;
+    padding: 15px;
+}
+.detalle-curso-contenido-habilitado {
+    border: 1px solid #e5e5e5;
+    width: 64%;
     padding: 15px;
 }
 .detalle-curso-docente {
@@ -47,6 +62,14 @@
     z-index: 900;
     transform: translateX(100%);
 }
+#card-detalle-habilitado {
+    position: fixed;
+    width: 400px;
+    right: 660px;
+    top: 180px; /* Ajusta el valor según tus necesidades */
+    z-index: 900;
+    transform: translateX(100%);
+}
 .card-body {
     padding-left: 40px;
     padding-right: 40px;
@@ -62,14 +85,70 @@
 .accordion-body {
     border-top: 1px solid rgb(133, 133, 133);
 }
+.table-horario {
+    width: auto;
+    border-collapse: collapse;
+}
+.table-horario th,
+td {
+    border: 1px solid black;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.contenedor-tabla {
+    width: 700px;
+    overflow-x: auto;
+}
+.contenedor-tabla-docente {
+    width: 700px;
+    overflow-x: auto;
+}
 
+@media (max-width: 1770px) {
+    #card-detalle-habilitado {
+        right: 510px !important;
+    }
+}
 @media (max-width: 1670px) {
     #card-detalle {
         right: 560px !important;
+    }
+    #card-detalle-habilitado {
+        right: 490px !important;
+    }
+    .detalle-curso-contenido-habilitado {
+        width: 60%;
+    }
+    .contenedor-tabla {
+        width: 590px;
+        overflow-x: auto;
     }
 }
 @media (max-width: 1300px) {
     #card-detalle {
         right: 470px !important;
+    }
+    #card-detalle-habilitado {
+        right: 440px !important;
+        width: 350px !important;
+    }
+    .contenedor-tabla {
+        width: 520px;
+        overflow-x: auto;
+    }
+}
+@media screen and (max-width: 600px) {
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    th,
+    td {
+        display: inline-block;
+        width: auto;
     }
 }
